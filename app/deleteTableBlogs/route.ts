@@ -3,13 +3,13 @@ import { db } from "@vercel/postgres";
 
 const client = await db.connect();
 
-async function deleteBlogsTable() {
+async function deleteBlogs() {
   await client.sql`DROP TABLE IF EXISTS blogs`;
 }
-
-export async function GET() {
+// must follow http convention DELETE, PUT, POST, GET
+export async function DELETE() {
   try {
-    await deleteBlogsTable();
+    await deleteBlogs();
     return Response.json({ message: "table blogs deleted" });
   } catch (error) {
     const err = error as Error;
