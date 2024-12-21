@@ -1,6 +1,5 @@
 import { NavBar } from "./ui/nav";
 import { ListAllBlogs } from "@/app/ui/listAllBlogs";
-import { fetchSearchedBlogs } from "./lib/fetch";
 
 export default async function Home(props: {
   searchParams?: Promise<{
