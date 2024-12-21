@@ -1,5 +1,6 @@
 // DELETE
-import { sql } from "@vercel/postgres";
+import { db } from "@vercel/postgres";
+const client = await db.connect();
 
 export async function deleteBlogsTable() {
   // throw new Error("Failed to Delete Invoice");
@@ -7,19 +8,21 @@ export async function deleteBlogsTable() {
   //   await sql`DELETE FROM invoices WHERE id = ${id}`;
   //   //   revalidatePath("/dashboard/invoices");
 
-  await sql`DROP TABLE blogs`;
+  await client.sql`DROP TABLE IF EXISTS blogs`;
 }
 
 export async function GET() {
   try {
-    await sql`BEGIN`;
+    await client.sql`BEGIN`;
     await deleteBlogsTable();
-    await sql`COMMIT`;
+    await client.sql`COMMIT`;
 
     return Response.json({ message: "table blogs deleted" });
   } catch (error) {
     const err = error as Error;
-
+    await client.sql`ROLLBACK`;
     return Response.json({ error: err.message });
+  } finally {
+    client.release();
   }
 }
