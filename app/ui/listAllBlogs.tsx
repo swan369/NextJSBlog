@@ -2,6 +2,8 @@ import { fetchAllBlogs } from "../lib/fetch";
 import Image from "next/image";
 import { fetchSearchedBlogs } from "../lib/fetch";
 
+//test1
+
 export async function ListAllBlogs({ query }: { query: string }) {
   let blogs = [];
 
