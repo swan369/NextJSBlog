@@ -1,4 +1,4 @@
-export type blogs = {
+export type Blogs = {
   _id: string;
   title: string;
   detail: string;
@@ -9,7 +9,7 @@ export type blogs = {
   updatedAt: Date;
 };
 
-export type authors = {
+export type Authors = {
   _id: string;
   name: string;
   email: string;

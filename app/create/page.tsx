@@ -1,6 +1,6 @@
 import { createBlog } from "../lib/actions";
 
-export default function CreateBlog() {
+export default function Page() {
   return (
     <>
       <main className="bg-gray-100 flex items-center justify-center min-h-screen">

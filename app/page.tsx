@@ -1,5 +1,5 @@
 import { NavBar } from "./ui/nav";
-import { ListAllBlogs } from "@/app/ui/listAllBlogs";
+import { ListBlogs } from "@/app/ui/listBlogs";
 
 export default async function Home(props: {
   searchParams?: Promise<{
@@ -14,7 +14,7 @@ export default async function Home(props: {
     <>
       <main className="">
         <NavBar />
-        <ListAllBlogs query={query} />
+        <ListBlogs query={query} />
       </main>
     </>
   );

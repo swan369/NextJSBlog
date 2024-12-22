@@ -19,6 +19,7 @@ const FormSchema = z.object({
   date: z.string(),
 });
 
+// create Blog
 const CreateBlog = FormSchema.omit({ _id: true, date: true });
 
 export async function createBlog(formData: FormData) {
@@ -31,7 +32,7 @@ export async function createBlog(formData: FormData) {
     author_Id: formData.get("author_Id"),
   };
 
-  console.log(rawFormData);
+  // console.log(rawFormData);
 
   // parse into validator =>
   const { title, detail, imageURL, author, author_Id } =
