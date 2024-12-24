@@ -7,7 +7,6 @@ import { useSearch } from "../lib/provider";
 export function SearchBlog() {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
-  // const pathname = usePathname();
 
   // searchParams provides the current state of the query parameters in the URL.
   // searchParams is a live object, does not have functions to change it except "get".
@@ -34,16 +33,6 @@ export function SearchBlog() {
     handleSearch(term);
   };
 
-  // const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-  //   if (e.key === "Enter") {
-  //     const term = e.currentTarget.value;
-  //     const params = updateSearchParams(term);
-  //     e.currentTarget.value = "";
-  //     // creates a history
-  //     redirect(`/?${params.toString()}`);
-  //   }
-  // };
-
   return (
     <>
       <div className="relative flex flex-1 flex-shrink-0 ">
@@ -53,7 +42,6 @@ export function SearchBlog() {
           className="peer block w-7/12 rounded-md border border-gray-200 py-[9px] pl-10 text-sm text-black outline-2 placeholder:text-gray-500"
           placeholder="search here..."
           onChange={(e) => handleChange(e)}
-          // onKeyDown={handleKeyDown}
           // defaultValue only set the initial value when first rendered. Perhaps useful for prefilling forms
           // defaultValue={searchParams.get("query")?.toString()}
           // value updates dynamically when user inputs
