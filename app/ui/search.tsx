@@ -3,7 +3,6 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { useSearch } from "../lib/provider";
-import { Suspense } from "react";
 
 export function SearchBlog() {
   const searchParams = useSearchParams();

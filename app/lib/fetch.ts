@@ -1,3 +1,4 @@
+// import { sql } from "@vercel/postgres";
 import { sql } from "@vercel/postgres";
 
 export async function fetchAllBlogs() {
