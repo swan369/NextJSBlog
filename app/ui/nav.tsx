@@ -1,7 +1,7 @@
 // use client means you can use event listeners
 "use client";
 
-import { SearchBlog } from "@/app/ui/search";
+import { SearchBar } from "@/app/ui/searchBar";
 import Link from "next/link";
 import { Suspense } from "react";
 
@@ -31,10 +31,10 @@ export function NavBar() {
     <nav className="bg-purple-500 text-white h-20 content-center">
       <div className="flex justify-between content-center gap-10 bg-orange-400">
         <div className="pl-12 text-3xl md:text-5xl font-bold text-nowrap ">
-          My Blog
+          FitnessFinance
         </div>
         <Suspense fallback={<div>Loading...</div>}>
-          <SearchBlog />
+          <SearchBar />
         </Suspense>
 
         <div className="hidden  md:flex md:bg-black md:w-1/3 md:justify-around md:font-bold">
