@@ -3,6 +3,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { useSearch } from "../lib/provider";
+import { usePathname } from "next/navigation";
 
 export function SearchBar() {
   const searchParams = useSearchParams();
@@ -15,6 +16,7 @@ export function SearchBar() {
   // searchParams only reflects the new URL query after replace() effects
 
   const { searchQuery, setSearchQuery } = useSearch();
+  const pathname = usePathname();
 
   const handleSearch = useDebouncedCallback((term) => {
     const params = new URLSearchParams(searchParams);
@@ -24,7 +26,7 @@ export function SearchBar() {
       params.delete("query");
     }
 
-    replace(`?${params.toString()}`);
+    replace(`${pathname}?${params.toString()}`);
   }, 300);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
