@@ -15,6 +15,11 @@ export type Authors = {
   email: string;
 };
 
+export type SearchContextType = {
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+};
+
 // {
 //     _id: "d6e15727-9fe1-4961-8c5b-ea44a9bd81aa",
 //     title: "The Rise of JavaScript Frameworks",

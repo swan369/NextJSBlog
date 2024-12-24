@@ -3,8 +3,8 @@ import { sql } from "@vercel/postgres";
 export async function fetchAllBlogs() {
   try {
     const allBlogs = await sql`SELECT * FROM blogs`;
-    console.log("allBlogs:", allBlogs);
-    console.log("allBlogs.rows", allBlogs.rows);
+    // console.log("allBlogs:", allBlogs);
+    // console.log("allBlogs.rows", allBlogs.rows);
     return allBlogs.rows;
   } catch (error) {
     console.error("Database Error:", error);

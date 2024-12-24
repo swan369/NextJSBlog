@@ -1,4 +1,6 @@
 import "@/app/ui/global.css";
+import { NavBar } from "./ui/nav";
+import { SearchProvider } from "@/app/lib/provider";
 
 export default function RootLayout({
   children,
@@ -7,7 +9,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="min-w-200">
-      <body className="">{children}</body>
+      <body className="">
+        <SearchProvider>
+          <NavBar />
+          {children}
+        </SearchProvider>
+      </body>
     </html>
   );
 }

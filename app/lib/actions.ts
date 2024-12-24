@@ -20,8 +20,9 @@ const FormSchema = z.object({
 });
 
 // create Blog
-const CreateBlog = FormSchema.omit({ _id: true, date: true });
 
+const CreateBlog = FormSchema.omit({ _id: true, date: true });
+// due to <form action = {createBlog}>, the function auto receives formData that contains user input
 export async function createBlog(formData: FormData) {
   // extracted input
   const rawFormData = {
@@ -37,7 +38,7 @@ export async function createBlog(formData: FormData) {
   // parse into validator =>
   const { title, detail, imageURL, author, author_Id } =
     CreateBlog.parse(rawFormData);
-
+  // access only the first data part [0] i.e. YYYY-MM-DD. Don't need the time and seconds. split("T") splits the date into an array separating date and time. T is a separator between the date and time.
   const date = new Date().toISOString().split("T")[0];
 
   await sql`
