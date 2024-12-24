@@ -3,6 +3,7 @@
 
 import { SearchBlog } from "@/app/ui/search";
 import Link from "next/link";
+import { Suspense } from "react";
 
 const links = [
   { name: "Home", href: "/" },
@@ -32,8 +33,9 @@ export function NavBar() {
         <div className="pl-12 text-3xl md:text-5xl font-bold text-nowrap ">
           My Blog
         </div>
-
-        <SearchBlog />
+        <Suspense fallback={<div>Loading...</div>}>
+          <SearchBlog />
+        </Suspense>
 
         <div className="hidden  md:flex md:bg-black md:w-1/3 md:justify-around md:font-bold">
           {linkBoxes}
