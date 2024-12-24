@@ -4,7 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { useSearch } from "../lib/provider";
 
-export function SearchBlog() {
+export function SearchBar() {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
 
