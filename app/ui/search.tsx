@@ -7,7 +7,7 @@ import { useSearch } from "../lib/provider";
 export function SearchBlog() {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   // searchParams provides the current state of the query parameters in the URL.
   // searchParams is a live object, does not have functions to change it except "get".
