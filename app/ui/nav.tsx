@@ -30,9 +30,12 @@ export function NavBar() {
   return (
     <nav className="bg-purple-500 text-white h-20 content-center">
       <div className="flex justify-between content-center gap-10 bg-orange-400">
-        <div className="pl-12 text-3xl md:text-5xl font-bold text-nowrap ">
-          FitnessFinance
-        </div>
+        <Link href="/">
+          <div className="pl-12 text-3xl md:text-5xl font-bold text-nowrap ">
+            FitnessFinance
+          </div>
+        </Link>
+
         <Suspense fallback={<div>Loading...</div>}>
           <SearchBar />
         </Suspense>

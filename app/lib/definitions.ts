@@ -1,12 +1,11 @@
-export type Blogs = {
+export type Blog = {
   _id: string;
   title: string;
   detail: string;
-  imageURL: string;
+  imageurl: string;
   author: string;
   author_id: string;
-  createAt: Date;
-  updatedAt: Date;
+  date: string;
 };
 
 export type Authors = {
@@ -18,6 +17,9 @@ export type Authors = {
 export type SearchContextType = {
   searchQuery: string;
   setSearchQuery: (query: string) => void;
+  blogs: Blog[];
+  setBlogs: (blogs: Blog[]) => void;
+  test: string;
 };
 
 // {
