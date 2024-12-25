@@ -2,6 +2,10 @@
 
 import { ListBlogs } from "@/app/ui/listBlogs";
 
+//Can also use loading.tsx => reate (focusLoad) aka (overview) directory n put in page.tsx n loading.tsx to focus loading only that page.
+import { Suspense } from "react";
+// import { SkeletonLoading } from "./ui/skeleton";
+
 // server components all receive searchParams as props
 export default async function Home(props: {
   searchParams?: Promise<{
@@ -15,21 +19,10 @@ export default async function Home(props: {
   return (
     <>
       <main className="">
-        <ListBlogs query={query} />
+        <Suspense fallback={<div>loadingSuspense ....</div>}>
+          <ListBlogs query={query} />
+        </Suspense>
       </main>
     </>
   );
 }
-
-// import { ListBlogs } from "@/app/ui/listBlogs";
-// import { useSearch } from "./lib/provider";
-
-// export default function Home() {
-//   return (
-//     <>
-//       <main className="">
-//         <ListBlogs />
-//       </main>
-//     </>
-//   );
-// }
