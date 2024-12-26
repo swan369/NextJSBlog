@@ -2,9 +2,7 @@
 // import { updateBlog } from "@/app/lib/actions";
 import { fetchBlogById } from "@/app/lib/fetch";
 
-export default async function UpdateBlog(props: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function UpdateBlog(props: { params: { id: string } }) {
   const params = await props.params;
   const id = params.id;
   const { title, detail, image_url, author, author_id } = await fetchBlogById(
