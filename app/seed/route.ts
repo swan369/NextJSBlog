@@ -11,9 +11,9 @@ async function seedBlogs() {
       _id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       title VARCHAR(50) NOT NULL,
       detail TEXT NOT NULL,
-      imageURL VARCHAR(255) NOT NULL,
       author VARCHAR(50) NOT NULL,
-      author_Id UUID NOT NULL,
+      image_url VARCHAR(50) NOT NULL,
+      author_id UUID NOT NULL,
       date VARCHAR(50) NOT NULL
     )`;
 
@@ -22,15 +22,15 @@ async function seedBlogs() {
       (blog) =>
         client.sql`
             INSERT INTO blogs(
-              _id, title, detail, imageURL, author, author_id, date
+              _id, title, detail, image_url, author, author_id, date
             )
             VALUES(
               ${blog._id}, 
               ${blog.title}, 
               ${blog.detail}, 
-              ${blog.imageURL}, 
+              ${blog.image_url}, 
               ${blog.author},
-              ${blog.author_Id}, 
+              ${blog.author_id}, 
               ${blog.date}
             )
             ON CONFLICT (_id) DO NOTHING;

@@ -13,9 +13,9 @@ const FormSchema = z.object({
   _id: z.string(),
   title: z.string(),
   detail: z.string(),
-  imageURL: z.string(),
+  image_url: z.string(),
   author: z.string(),
-  author_Id: z.string(),
+  author_id: z.string(),
   date: z.string(),
 });
 
@@ -28,29 +28,29 @@ export async function createBlog(formData: FormData) {
   const rawFormData = {
     title: formData.get("title"),
     detail: formData.get("detail"),
-    imageURL: formData.get("imageURL"),
+    image_url: formData.get("image_url"),
     author: formData.get("author"),
-    author_Id: formData.get("author_Id"),
+    author_id: formData.get("author_id"),
   };
 
-  // console.log(rawFormData);
+  console.log(rawFormData);
 
   // parse into validator =>
-  const { title, detail, imageURL, author, author_Id } =
+  const { title, detail, image_url, author, author_id } =
     CreateBlog.parse(rawFormData);
   // access only the first data part [0] i.e. YYYY-MM-DD. Don't need the time and seconds. split("T") splits the date into an array separating date and time. T is a separator between the date and time.
   const date = new Date().toISOString().split("T")[0];
 
   await sql`
   INSERT INTO blogs (
-  title, detail, imageURL, author, author_Id, date
+  title, detail, image_url, author, author_id, date
   )
   VALUES(
   ${title},
   ${detail},
-  ${imageURL},
+  ${image_url},
   ${author},
-  ${author_Id},
+  ${author_id},
   ${date}
   )
   `;

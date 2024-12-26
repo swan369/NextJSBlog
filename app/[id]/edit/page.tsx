@@ -1,11 +1,18 @@
-import { createBlog } from "../lib/actions";
+// must be default at page level
+// import { updateBlog } from "@/app/lib/actions";
+import { fetchBlogById } from "@/app/lib/fetch";
 
-export default function Page() {
+export default async function UpdateBlog(props: { params: { id: string } }) {
+  const params = await props.params;
+  const id = params.id;
+  const { title, detail, image_url, author, author_id } = await fetchBlogById(
+    id
+  );
   return (
     <>
       <main className="bg-gray-100 flex items-center justify-center min-h-screen">
         <form
-          action={createBlog}
+          //   action={updateBlog}
           className="flex flex-col gap-6 w-3/4 bg-white p-8 rounded-lg shadow-md"
         >
           <div>
@@ -18,6 +25,11 @@ export default function Page() {
               name="title"
               placeholder="Enter the blog title"
               className="mt-2 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              // default value for prefilled-good for edits, show initial render. No control
+              defaultValue={title}
+
+              // it is controlled programatically. Good for control state like user input. Good for fast searching
+              // value={title}
             />
           </div>
 
@@ -29,18 +41,20 @@ export default function Page() {
               name="detail"
               placeholder="Write the blog details here..."
               className="mt-2 w-full  p-3 border border-gray-300 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+              defaultValue={detail}
             ></textarea>
           </div>
 
           <div>
             <label className="block text-gray-700 text-sm font-medium">
-              Image_URL:
+              Image URL:
             </label>
             <input
               name="image_url"
               type="url"
-              placeholder="Enter the image_URL"
+              placeholder="Enter the image URL"
               className="mt-2 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              defaultValue={image_url}
             />
           </div>
 
@@ -53,6 +67,7 @@ export default function Page() {
               type="text"
               placeholder="Enter the author name"
               className="mt-2 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              defaultValue={author}
             />
           </div>
 
@@ -65,6 +80,7 @@ export default function Page() {
               name="author_id"
               placeholder="Enter the author ID"
               className="mt-2 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              defaultValue={author_id}
             />
           </div>
 
@@ -78,6 +94,7 @@ export default function Page() {
           </div>
         </form>
       </main>
+      <h1>update blog</h1>
     </>
   );
 }

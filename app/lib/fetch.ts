@@ -1,4 +1,3 @@
-// import { sql } from "@vercel/postgres";
 import { sql } from "@vercel/postgres";
 
 export async function fetchAllBlogs() {
@@ -21,9 +20,8 @@ export async function fetchSearchedBlogs(term: string) {
   return data.rows;
 }
 
-export async function fetchFinBlogById(id: string) {
-  console.log("test", id);
+export async function fetchBlogById(id: string) {
   const data = await sql`SELECT * FROM blogs
   WHERE _id = ${id}`;
-  return data.rows;
+  return data.rows[0];
 }

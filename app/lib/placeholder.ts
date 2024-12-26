@@ -4,9 +4,9 @@ const blogs = [
     title: "The Rise of JavaScript Frameworks",
     detail:
       "An in-depth look at the most popular JavaScript frameworks in 2024 and their features.",
-    imageURL: "https://picsum.photos/200/300",
+    image_url: "https://picsum.photos/200/300",
     author: "Sarah Johnson",
-    author_Id: "410544b2-4001-4271-9855-fec4b6a6442a",
+    author_id: "410544b2-4001-4271-9855-fec4b6a6442a",
     date: "25 Mar 2001",
   },
   {
@@ -14,18 +14,18 @@ const blogs = [
     title: "Understanding Async/Await in Node.js",
     detail:
       "A guide to mastering asynchronous programming in Node.js using async/await.",
-    imageURL: "https://picsum.photos/200/300",
+    image_url: "https://picsum.photos/200/300",
     author: "Alex Chen",
-    author_Id: "13D07535-C59E-4157-A011-F8D2EF4E0CBB",
+    author_id: "13D07535-C59E-4157-A011-F8D2EF4E0CBB",
     date: "06 Dec 1999",
   },
   {
     _id: "4958dc9e-745f-4377-85e9-fec4b6a6442a",
     title: "CSS Grid vs Flexbox",
     detail: "When to use CSS Grid and when to use Flexbox for layout designs.",
-    imageURL: "https://picsum.photos/200/300",
+    image_url: "https://picsum.photos/200/300",
     author: "Alex Chen",
-    author_Id: "13D07535-C59E-4157-A011-F8D2EF4E0CBB",
+    author_id: "13D07535-C59E-4157-A011-F8D2EF4E0CBB",
     date: "26 Jan 2001",
   },
   {
@@ -33,9 +33,9 @@ const blogs = [
     title: "MongoDB Best Practices",
     detail:
       "Tips and tricks for optimizing your MongoDB queries and schema design.",
-    imageURL: "https://picsum.photos/200/300",
+    image_url: "https://picsum.photos/200/300",
     author: "Alex Chen",
-    author_Id: "13D07535-C59E-4157-A011-F8D2EF4E0CBB",
+    author_id: "13D07535-C59E-4157-A011-F8D2EF4E0CBB",
     date: "01 Jan 2001",
   },
   {
@@ -43,9 +43,9 @@ const blogs = [
     title: "Improving Web Performance",
     detail:
       "A checklist for optimizing your website's loading speed and responsiveness.",
-    imageURL: "https://picsum.photos/200/300",
+    image_url: "https://picsum.photos/200/300",
     author: "Marcus Williams",
-    author_Id: "88D07535-C59E-4157-A011-F8D2EF4E0CBB",
+    author_id: "88D07535-C59E-4157-A011-F8D2EF4E0CBB",
     date: "07 Jul 2010",
   },
 ];

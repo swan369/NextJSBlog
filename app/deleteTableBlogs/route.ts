@@ -7,7 +7,7 @@ async function deleteBlogs() {
   await client.sql`DROP TABLE IF EXISTS blogs`;
 }
 // must follow http convention DELETE, PUT, POST, GET
-export async function DELETE() {
+export async function GET() {
   try {
     await deleteBlogs();
     return Response.json({ message: "table blogs deleted" });

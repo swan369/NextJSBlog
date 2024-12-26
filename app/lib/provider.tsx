@@ -14,6 +14,7 @@ export function SearchProvider({ children }: { children: ReactNode }) {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const test = "Barry";
+
   return (
     <div>
       <SearchContext.Provider
