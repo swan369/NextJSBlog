@@ -1,6 +1,7 @@
 // must be default at page level
 // import { updateBlog } from "@/app/lib/actions";
 import { fetchBlogById } from "@/app/lib/fetch";
+import { updateBlog } from "@/app/lib/actions";
 
 export default async function UpdateBlog({
   params,
@@ -12,11 +13,22 @@ export default async function UpdateBlog({
   const { title, detail, image_url, author, author_id } = await fetchBlogById(
     id
   );
+
+  //updateBlog only receives formData when action = {updateBlog}. If wanna add another argument like id, you can't: action  = {updateBlog(id)}. You need to use a callback
+  // first option to get action updateBlog to receive more than one arguments .e.g id
+  const updateBlogWith_id = async (formData: FormData) => {
+    "use server";
+    await updateBlog(id, formData);
+  };
+
+  // second option
+  // const updateBlogWith_id = updateBlog.bind(null, id);
+
   return (
     <>
       <main className="bg-gray-100 flex items-center justify-center min-h-screen">
         <form
-          //   action={updateBlog}
+          action={updateBlogWith_id}
           className="flex flex-col gap-6 w-3/4 bg-white p-8 rounded-lg shadow-md"
         >
           <div>
@@ -98,7 +110,6 @@ export default async function UpdateBlog({
           </div>
         </form>
       </main>
-      <h1>update blog</h1>
     </>
   );
 }

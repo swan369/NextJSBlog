@@ -19,7 +19,6 @@ export type SearchContextType = {
   setSearchQuery: (query: string) => void;
   blogs: Blog[];
   setBlogs: (blogs: Blog[]) => void;
-  test: string;
 };
 
 // {

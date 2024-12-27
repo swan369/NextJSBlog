@@ -21,9 +21,10 @@ const FormSchema = z.object({
 
 // create Blog
 
-const CreateBlog = FormSchema.omit({ _id: true, date: true });
 // due to <form action = {createBlog}>, the function auto receives formData that contains user input
 export async function createBlog(formData: FormData) {
+  const CreateBlog = FormSchema.omit({ _id: true, date: true });
+
   // extracted input
   const rawFormData = {
     title: formData.get("title"),
@@ -56,5 +57,41 @@ export async function createBlog(formData: FormData) {
   `;
 
   revalidatePath("/create");
+  redirect("/");
+}
+
+//update blog by id
+export async function updateBlog(
+  id: string,
+  formData: FormData
+): Promise<void> {
+  //extract raw data
+  const rawUpdate = {
+    title: formData.get("title"),
+    detail: formData.get("detail"),
+    author: formData.get("author"),
+    author_id: formData.get("author_id"),
+    image_url: formData.get("image_url"),
+  };
+
+  const updatedFormSchema = FormSchema.omit({ _id: true, date: true });
+
+  const validatedUpdate = updatedFormSchema.parse(rawUpdate);
+
+  //extract deconstruct values
+
+  const { title, detail, image_url, author, author_id } = validatedUpdate;
+
+  try {
+    await sql`UPDATE blogs
+    SET title = ${title}, detail = ${detail}, image_url = ${image_url}, author = ${author}, author_id = ${author_id}
+    WHERE _id = ${id}`;
+  } catch (error) {
+    console.log("error:", error);
+    throw new Error("Database Error: Failed to update blog");
+  }
+
+  revalidatePath("/[id]/edit");
+  // redirect must be last, and outside try{} block, cuz redirect works by throwing an error
   redirect("/");
 }

@@ -1,5 +1,6 @@
 import { createBlog } from "../lib/actions";
 
+// must use default for pages
 export default function Page() {
   return (
     <>
