@@ -1,5 +1,6 @@
 import { deleteBlog } from "../lib/actions";
 
+// better to receive props from parent then receive Promise Params. Unless you are a Page component.
 export async function DeleteBlogForm({ id }: { id: string }) {
   const deleteBlogAssist_id = async () => {
     "use server";
