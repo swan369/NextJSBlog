@@ -4,7 +4,7 @@ import { fetchSearchedBlogs } from "../lib/fetch";
 import Link from "next/link";
 import { Blog } from "../lib/definitions";
 
-// can't use Provider in an async function, but can pass down info
+// can't use Provider in an async function
 
 export async function ListBlogs({ query }: { query: string }) {
   let blogs: Blog[] = [];

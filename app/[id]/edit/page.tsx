@@ -28,6 +28,7 @@ export default async function UpdateBlog({
     <>
       <main className="bg-gray-100 flex items-center justify-center min-h-screen">
         <form
+          // turning action to "somewhat" a listener/handler
           action={updateBlogWith_id}
           className="flex flex-col gap-6 w-3/4 bg-white p-8 rounded-lg shadow-md"
         >

@@ -83,7 +83,8 @@ export async function updateBlog(
   const { title, detail, image_url, author, author_id } = validatedUpdate;
 
   try {
-    await sql`UPDATE blogs
+    await sql`
+    UPDATE blogs
     SET title = ${title}, detail = ${detail}, image_url = ${image_url}, author = ${author}, author_id = ${author_id}
     WHERE _id = ${id}`;
   } catch (error) {
@@ -93,5 +94,16 @@ export async function updateBlog(
 
   revalidatePath("/[id]/edit");
   // redirect must be last, and outside try{} block, cuz redirect works by throwing an error
+  redirect("/");
+}
+
+// delete blog by id
+
+export async function deleteBlog(id: string) {
+  await sql`
+  DELETE FROM blogs
+  WHERE _id = ${id}`;
+
+  revalidatePath(`/${id}/detail`);
   redirect("/");
 }
