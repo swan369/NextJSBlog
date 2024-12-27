@@ -1,6 +1,5 @@
 // use client means you can use event listeners
 "use client";
-
 import { SearchBar } from "@/app/ui/searchBar";
 import Link from "next/link";
 import { Suspense } from "react";

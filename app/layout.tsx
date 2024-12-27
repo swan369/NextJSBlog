@@ -1,6 +1,7 @@
 import "@/app/ui/global.css";
 import { NavBar } from "./ui/nav";
-import { SearchProvider } from "@/app/lib/provider";
+import { SearchProvider } from "./lib/provider";
+// import { SearchProvider } from "@/app/lib/provider";
 
 export default function RootLayout({
   children,

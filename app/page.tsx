@@ -1,6 +1,6 @@
 // async/await is not yet supported in Client Components, only Server Components. This error is often caused by accidentally adding `'use client'` to a module that was originally written for the server.// import { NavBar } from "./ui/nav";
 
-import { ListBlogs } from "@/app/ui/listBlogs";
+import { ListBlogs } from "./ui/listBlogs";
 
 //Can also use loading.tsx => reate (focusLoad) aka (overview) directory n put in page.tsx n loading.tsx to focus loading only that page.
 import { Suspense } from "react";
