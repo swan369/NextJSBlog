@@ -3,7 +3,6 @@
 import { SearchBar } from "@/app/ui/searchBar";
 import Link from "next/link";
 import { Suspense } from "react";
-// import { SigningOut } from "./signingout";
 
 const links = [
   { name: "Home", href: "/" },

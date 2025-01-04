@@ -110,11 +110,21 @@ async function seedUsers() {
 }
 
 async function rehashPasswords() {
-  const users = await sql`SELECT * FROM users`;
-  for (const user of users.rows) {
-    const hashedPassword = await bcrypt.hash(user.password, 10);
-    await sql`UPDATE users SET password=${hashedPassword} WHERE email=${user.email}`;
-    console.log(`Rehashed password for user: ${user.email}`);
+  try {
+    const users = await sql`SELECT * FROM users`;
+    for (const user of users.rows) {
+      if (user.password.startsWith("$2b$")) {
+        console.log(`Password for user ${user.email} is already hashed`);
+        continue;
+      }
+
+      const hashedPassword = await bcrypt.hash(user.password, 10);
+      await sql`UPDATE users SET password=${hashedPassword} WHERE email=${user.email}`;
+      console.log(`Rehashed password for user: ${user.email}`);
+    }
+  } catch (error) {
+    const err = error as Error;
+    console.error("Error rehashing passwords:", err.message);
   }
 }
 
