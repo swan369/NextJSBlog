@@ -9,30 +9,28 @@ export function ListBlogClient(props: { blogs: Blog[] }) {
   const blogs = props.blogs;
   const listBlogs = blogs.map((blog) => {
     return (
-      <>
-        <Link href={`/${blog._id}/detail`}>
-          <div
-            key={blog._id}
-            className="md-20 rounded shadow-lg bg-gray-200 md:w-60 md:h-40 w-30"
-            onClick={() => setSearchQuery("")}
-          >
-            {blog.image_url ? (
-              <Image
-                className="block w-full h-full object-cover rounded-lg"
-                src={blog.image_url}
-                alt="an image"
-                width={50}
-                height={50}
-                // unoptimized
-                priority={true}
-              />
-            ) : (
-              <div>No image</div>
-            )}
-            <div className="font-medium text-rose-800">{blog.title}</div>
-          </div>
-        </Link>
-      </>
+      // key at root of JSX structure, remove unnecessary fragments
+      <Link href={`/${blog._id}/detail`} key={blog._id}>
+        <div
+          className="md-20 rounded shadow-lg bg-gray-200 md:w-60 md:h-40 w-30"
+          onClick={() => setSearchQuery("")}
+        >
+          {blog.image_url ? (
+            <Image
+              className="block w-full h-full object-cover rounded-lg"
+              src={blog.image_url}
+              alt="an image"
+              width={50}
+              height={50}
+              // unoptimized
+              priority={true}
+            />
+          ) : (
+            <div>No image</div>
+          )}
+          <div className="font-medium text-rose-800">{blog.title}</div>
+        </div>
+      </Link>
     );
   });
 
