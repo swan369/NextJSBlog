@@ -21,6 +21,13 @@ export type SearchContextType = {
   setBlogs: (blogs: Blog[]) => void;
 };
 
+export type User = {
+  _id: string;
+  name: string;
+  email: string;
+  password: string;
+};
+
 // {
 //     _id: "d6e15727-9fe1-4961-8c5b-ea44a9bd81aa",
 //     title: "The Rise of JavaScript Frameworks",

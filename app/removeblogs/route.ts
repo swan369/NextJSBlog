@@ -6,10 +6,16 @@ const client = await db.connect();
 async function deleteBlogs() {
   await client.sql`DROP TABLE IF EXISTS blogs`;
 }
+
+async function deleteUsers() {
+  await client.sql`DROP TABLE IF EXISTS users`;
+}
+
 // must follow http convention DELETE, PUT, POST, GET
 export async function GET() {
   try {
     await deleteBlogs();
+    await deleteUsers();
     return Response.json({ message: "table blogs deleted" });
   } catch (error) {
     const err = error as Error;

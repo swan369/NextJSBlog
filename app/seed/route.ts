@@ -1,5 +1,8 @@
 import { db } from "@vercel/postgres";
-import { blogs, authors } from "../lib/placeholder"; // using ESM export method
+import { sql } from "@vercel/postgres";
+import bcrypt from "bcrypt";
+
+import { blogs, authors, users } from "../lib/placeholder"; // using ESM export method
 
 const client = await db.connect();
 
@@ -74,11 +77,55 @@ async function seedAuthors() {
   return insertedAuthors;
 }
 
+// seed users
+async function seedUsers() {
+  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+
+  await client.sql`
+      CREATE TABLE IF NOT EXISTS users(
+      _id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      name VARCHAR(50) UNIQUE NOT NULL,
+      email VARCHAR(50) UNIQUE NOT NULL,
+      password VARCHAR(255) UNIQUE NOT NULL
+      )
+      `;
+
+  const insertedUsers = await Promise.all(
+    users.map(
+      (user) =>
+        client.sql`INSERT INTO users
+              (_id, name, email, password)
+               VALUES(
+              ${user._id},
+              ${user.name},
+              ${user.email},
+              ${user.password}
+              )
+              ON CONFLICT (_id) DO NOTHING;
+              `
+    )
+  );
+
+  return insertedUsers;
+}
+
+async function rehashPasswords() {
+  const users = await sql`SELECT * FROM users`;
+  for (const user of users.rows) {
+    const hashedPassword = await bcrypt.hash(user.password, 10);
+    await sql`UPDATE users SET password=${hashedPassword} WHERE email=${user.email}`;
+    console.log(`Rehashed password for user: ${user.email}`);
+  }
+}
+
+rehashPasswords();
+
 const GET = async () => {
   try {
     await client.sql`BEGIN`;
     await seedBlogs();
     await seedAuthors();
+    await seedUsers();
     await client.sql`COMMIT`;
     return Response.json({ message: "Database seeded successfully" });
   } catch (error) {

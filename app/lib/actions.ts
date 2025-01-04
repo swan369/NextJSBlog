@@ -99,11 +99,60 @@ export async function updateBlog(
 
 // delete blog by id
 
-export async function deleteBlog(id: string) {
-  await sql`
-  DELETE FROM blogs
-  WHERE _id = ${id}`;
+// export async function deleteBlog(id: string) {
+//   await sql`
+//   DELETE FROM blogs
+//   WHERE _id = ${id}`;
 
-  revalidatePath(`/${id}/detail`);
-  redirect("/");
+//   revalidatePath(`/${id}/detail`);
+//   redirect("/");
+// }
+
+// delete with authentication without a Page aka route
+import getServerSession from "next-auth";
+import { authConfig } from "@/auth.config";
+
+export async function deleteBlog(id: string) {
+  const session = await getServerSession(authConfig);
+
+  // session is the user's authentication status
+  if (!session) {
+    throw new Error("Unauthorized: You must be logged in to delete a blog.");
+  }
+
+  try {
+    await sql`
+      DELETE FROM blogs 
+      WHERE _id = ${id}`;
+
+    revalidatePath(`/${id}/detail`);
+    redirect("/");
+  } catch (error) {
+    console.error("Failed to delete blog:", error);
+    throw new Error("Could not delete the blog. Please try again later.");
+  }
+}
+
+// Authentication
+import { signIn } from "@/auth";
+import { AuthError } from "next-auth";
+
+export async function authenticate(
+  prevState: string | undefined,
+  // formData containing username and password
+  formData: FormData
+) {
+  try {
+    await signIn("credentials", formData);
+  } catch (error) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return "Invalid credentials.";
+        default:
+          return "Something went wrong.";
+      }
+    }
+    throw error;
+  }
 }

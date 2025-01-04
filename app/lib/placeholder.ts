@@ -68,4 +68,12 @@ const authors = [
   },
 ];
 
-export { blogs, authors };
+const users = [
+  {
+    _id: "88D17535-C59E-3157-A011-F8D2EF6E0CBA",
+    name: "a",
+    email: "a@gmail.com",
+    password: "a12356",
+  },
+];
+export { blogs, authors, users };

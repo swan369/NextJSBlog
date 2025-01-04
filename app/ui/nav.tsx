@@ -3,6 +3,7 @@
 import { SearchBar } from "@/app/ui/searchBar";
 import Link from "next/link";
 import { Suspense } from "react";
+// import { SigningOut } from "./signingout";
 
 const links = [
   { name: "Home", href: "/" },
@@ -27,22 +28,25 @@ const linkBoxes = links.map((link) => {
 
 export function NavBar() {
   return (
-    <nav className="bg-purple-500 text-white h-20 content-center">
-      <div className="flex justify-between content-center gap-10 bg-orange-400">
-        <Link href="/">
-          <div className="pl-12 text-3xl md:text-5xl font-bold text-nowrap ">
-            FitnessFinance
+    <>
+      <nav className="bg-purple-500 text-white h-20 content-center">
+        <div className="flex justify-between content-center gap-10 bg-orange-400">
+          <Link href="/">
+            <div className="pl-12 text-3xl md:text-5xl font-bold text-nowrap ">
+              FitnessFinance
+            </div>
+          </Link>
+
+          <Suspense fallback={<div>Loading...</div>}>
+            <SearchBar />
+          </Suspense>
+
+          <div className="hidden  md:flex md:bg-black md:w-1/3 md:justify-around md:font-bold">
+            {linkBoxes}
           </div>
-        </Link>
-
-        <Suspense fallback={<div>Loading...</div>}>
-          <SearchBar />
-        </Suspense>
-
-        <div className="hidden  md:flex md:bg-black md:w-1/3 md:justify-around md:font-bold">
-          {linkBoxes}
         </div>
-      </div>
-    </nav>
+        {/* <SigningOut /> */}
+      </nav>
+    </>
   );
 }
