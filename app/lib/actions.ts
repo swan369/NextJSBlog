@@ -128,9 +128,9 @@ export async function deleteBlog(id: string) {
     console.error("Failed to delete blog:", error);
     throw new Error("Could not delete the blog. Please try again later.");
   }
-  // prevent stale content served, only fresh ones
+  // prevent serving stale content via cache, only fresh ones
   revalidatePath(`/${id}/detail`);
-  // ensure redirect is outside try block, else throw error
+  // ensures redirect is outside try block, else throw error
   redirect("/");
 }
 
