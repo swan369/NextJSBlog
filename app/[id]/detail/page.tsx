@@ -1,5 +1,6 @@
 import { fetchBlogById } from "@/app/lib/fetch";
 import { DeleteBlogForm } from "@/app/ui/DeleteBlogForm";
+import { redirect } from "next/navigation";
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   // server component, receives props params. If client component, have to use useParams()

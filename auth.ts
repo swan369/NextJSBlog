@@ -27,6 +27,7 @@ async function getUser(email: string): Promise<User | undefined> {
 
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
+  // explicitly set. Else won't work on live.
   secret: process.env.AUTH_SECRET,
   // providers: [] replaced by :
   providers: [

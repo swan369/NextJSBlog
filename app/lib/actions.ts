@@ -124,13 +124,14 @@ export async function deleteBlog(id: string) {
     await sql`
       DELETE FROM blogs 
       WHERE _id = ${id}`;
-
-    revalidatePath(`/${id}/detail`);
-    redirect("/");
   } catch (error) {
     console.error("Failed to delete blog:", error);
     throw new Error("Could not delete the blog. Please try again later.");
   }
+  // prevent stale content served, only fresh ones
+  revalidatePath(`/${id}/detail`);
+  // ensure redirect is outside try block, else throw error
+  redirect("/");
 }
 
 // Authentication
