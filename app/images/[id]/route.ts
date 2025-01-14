@@ -3,10 +3,10 @@ import { NextResponse } from "next/server";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
-  const paramsAwait = await params;
-  const id = paramsAwait.id;
+  // in Next.js 13 and beyond, argument is provided and need not be awaited.
+  const { id } = context.params;
 
   // already converted to buffer and is an object {data:<Buffer.., type: 'image/png'}
   const image = await getImage(id);
