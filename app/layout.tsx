@@ -2,7 +2,6 @@ import "@/app/ui/global.css";
 import { NavBar } from "./ui/nav";
 import { SearchProvider } from "./lib/provider";
 import { SigningOut } from "./ui/signingout";
-// import { SearchProvider } from "@/app/lib/provider";
 
 export default function RootLayout({
   children,
@@ -10,7 +9,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="min-w-200">
+    <html lang="en" className="">
       <body className="">
         <SearchProvider>
           <SigningOut />
@@ -21,3 +20,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+// remember to mark "use client" on provider

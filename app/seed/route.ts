@@ -15,7 +15,9 @@ async function seedBlogs() {
       title VARCHAR(50) NOT NULL,
       detail TEXT NOT NULL,
       author VARCHAR(50) NOT NULL,
-      image_url VARCHAR(50) NOT NULL,
+      image_url VARCHAR(50),
+      image_file TEXT,
+      image_type TEXT,
       author_id UUID NOT NULL,
       date VARCHAR(50) NOT NULL
     )`;
@@ -127,9 +129,10 @@ async function rehashPasswords() {
     console.error("Error rehashing passwords:", err.message);
   }
 }
-
+// this is not automatically called, hence must specify when this route is reached.
 rehashPasswords();
 
+// this is automatically called when the route points here by NextJS
 const GET = async () => {
   try {
     await client.sql`BEGIN`;

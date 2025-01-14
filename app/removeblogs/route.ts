@@ -24,3 +24,8 @@ export async function GET() {
     client.release();
   }
 }
+//// Manually Configure
+// new Response(JSON.stringify({ message: "table blogs deleted" }), {
+//   status: 200,
+//   headers: { "Content-Type": "application/json" },
+// });

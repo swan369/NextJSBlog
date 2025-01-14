@@ -3,6 +3,7 @@
 import { SearchBar } from "@/app/ui/searchBar";
 import Link from "next/link";
 import { Suspense } from "react";
+import { PlusIcon } from "@heroicons/react/24/outline";
 
 const links = [
   { name: "Home", href: "/" },
@@ -11,6 +12,7 @@ const links = [
     href: "/login",
   },
   { name: "Contact", href: "/contact" },
+  { name: "addBlog", href: "/create" },
 ];
 
 const linkBoxes = links.map((link) => {
@@ -20,7 +22,7 @@ const linkBoxes = links.map((link) => {
       href={link.href}
       className="flex h-[48px] grow items-center justify-center gap-2 rounded-md p-3 text-sm font-bold hover:bg-blue hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3"
     >
-      {link.name}
+      {link.name === "addBlog" ? <PlusIcon className="h-10 w-10" /> : link.name}
     </Link>
   );
 });
@@ -40,7 +42,7 @@ export function NavBar() {
             <SearchBar />
           </Suspense>
 
-          <div className="hidden  md:flex md:bg-black md:w-1/3 md:justify-around md:font-bold">
+          <div className="hidden  md:flex md:bg-orange-500 md:w-1/3 md:justify-around md:font-bold">
             {linkBoxes}
           </div>
         </div>

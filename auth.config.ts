@@ -17,13 +17,18 @@ export const authConfig = {
         "/create",
         "/edit",
         "/delete",
+        // UUID is regular expression hence ...
         /^\/[0-9a-fA-F-]+\/edit$/, // Regex for dynamic edit routes
       ];
-
+      // authenticating aka true if authenticated
       const isProtectedRoute = protectedRoutes.some((route) => {
         if (typeof route === "string") {
           return nextUrl.pathname === route;
-        } else if (route instanceof RegExp) {
+        }
+        // instanceof is more specific than typeof as regular expressions are also objects and typeof will return it as object.
+        else if (route instanceof RegExp) {
+          // route is a regExp hence use .test()
+          //.test() is a built in method to test whether the string aka nextUrl.pathname matches the regular expression-route
           return route.test(nextUrl.pathname);
         }
         return false;
@@ -52,10 +57,10 @@ export const authConfig = {
       // // Example:
       // If a user tries to access /edit, they'll be redirected to /login?callbackUrl=/edit.
       // The callbackUrl will store /edit in this case.
+      // you need searchParams to extract from url, anything that comes after callbackUrl
       const callbackUrl = new URL(url, baseUrl).searchParams.get("callbackUrl");
 
       if (callbackUrl) {
-        // console.log("i was here");
         // console.log("callbackurlbarr:", callbackUrl); // callbackurlbarr: http://localhost:3000/cc27c14a-0acf-4f4a-a6c9-d45682c144b9/edit
 
         // Redirect to the callbackUrl if present
@@ -71,45 +76,6 @@ export const authConfig = {
   providers: [], // Add your authentication providers here (Google, GitHub, etc.)
 } satisfies NextAuthConfig;
 
-//   callbacks: {
-//     authorized({ auth, request: { nextUrl } }) {
-//       const isLoggedIn = !!auth?.user; // ensures strict boolean
-//       //   const protectedRoutes = [];
-//       const protectedRoutes = [
-//         // "/",
-//         "/create",
-//         "/edit",
-//         "/delete",
-//         /^\/[0-9a-fA-F-]+\/edit$/,
-//         // "/deleteTableBlogs",
-//       ];
-
-//       //   const isProtectedRoutes = protectedRoutes.some((route) =>
-//       //     nextUrl.pathname.startsWith(route)
-//       //   );
-
-//       const isProtectedRoute = protectedRoutes.some((route) => {
-//         if (typeof route === "string") {
-//           return nextUrl.pathname === route;
-//         } else if (route instanceof RegExp) {
-//           return route.test(nextUrl.pathname);
-//         }
-//         return false;
-//       });
-
-//       if (isProtectedRoute) {
-//         return isLoggedIn; // Allow access only if logged in
-//       }
-
-//       if (isLoggedIn) {
-//         // Redirect logged-in user to a default protected page if on a public page
-//         return Response.redirect(new URL("/create", nextUrl));
-//       }
-
-//       return true; // Allow access to non-protected routes
-//     },
-//   },
-//   //.....................
-
-//   providers: [], // Add providers with an empty array for now
-// } satisfies NextAuthConfig;
+// redirecting after logged in if not at default page
+// if wanna configure for redirect if not on e.g. /dashboard
+// const isOnDashboard = nextUrl.pathname.startsWith("/dashboard");

@@ -13,43 +13,71 @@ const FormSchema = z.object({
   _id: z.string(),
   title: z.string(),
   detail: z.string(),
-  image_url: z.string(),
+  image_url: z.string().optional(),
+  image_file: z.instanceof(Buffer).optional(),
+  image_type: z.string().optional(),
   author: z.string(),
   author_id: z.string(),
   date: z.string(),
 });
 
-// create Blog
-
+//// create Blog
 // due to <form action = {createBlog}>, the function auto receives formData that contains user input
-export async function createBlog(formData: FormData) {
+export async function createBlog(
+  formData: FormData
+): Promise<{ error: string | null }> {
   const CreateBlog = FormSchema.omit({ _id: true, date: true });
 
-  // extracted input
+  let imageBuffer = null;
+  let imageType = null;
+
+  const image = formData.get("image_file");
+  if (image instanceof File) {
+    // convert file to buffer
+    const bytes = await image.arrayBuffer();
+    imageBuffer = Buffer.from(bytes);
+    imageType = image.type;
+  } else {
+    throw new Error("invalid file");
+  }
+
+  // extracted input in object
   const rawFormData = {
     title: formData.get("title"),
     detail: formData.get("detail"),
     image_url: formData.get("image_url"),
+    // image_file: imageBuffer, // Now Buffer type
+    image_type: imageType,
     author: formData.get("author"),
     author_id: formData.get("author_id"),
   };
 
-  console.log(rawFormData);
-
   // parse into validator =>
-  const { title, detail, image_url, author, author_id } =
-    CreateBlog.parse(rawFormData);
+  const {
+    title,
+    detail,
+    image_url,
+    author,
+    // image_file,
+    image_type,
+    author_id,
+  } = CreateBlog.parse(rawFormData);
   // access only the first data part [0] i.e. YYYY-MM-DD. Don't need the time and seconds. split("T") splits the date into an array separating date and time. T is a separator between the date and time.
   const date = new Date().toISOString().split("T")[0];
 
+  // Convert Buffer to base64 string for storage
+  const base64String = imageBuffer ? imageBuffer.toString("base64") : null;
+
   await sql`
   INSERT INTO blogs (
-  title, detail, image_url, author, author_id, date
+  title, detail, image_url,image_file, image_type, author, author_id, date
   )
   VALUES(
   ${title},
   ${detail},
   ${image_url},
+  ${base64String},
+  ${image_type},
   ${author},
   ${author_id},
   ${date}
@@ -96,17 +124,6 @@ export async function updateBlog(
   // redirect must be last, and outside try{} block, cuz redirect works by throwing an error
   redirect("/");
 }
-
-// delete blog by id
-
-// export async function deleteBlog(id: string) {
-//   await sql`
-//   DELETE FROM blogs
-//   WHERE _id = ${id}`;
-
-//   revalidatePath(`/${id}/detail`);
-//   redirect("/");
-// }
 
 // delete with authentication without a Page aka route
 import getServerSession from "next-auth";

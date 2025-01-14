@@ -10,6 +10,8 @@ import { SkeletonLoading } from "./ui/skeleton";
 // always access searchParams or Params at page level. It is handled efficiently as pages are treated as server components by default.
 // guarantees that searchParams reflects the latest state of the URL
 // you then can pass data to children as props.
+
+import { createTableBlogs } from "./lib/fetch";
 export default async function Home(props: {
   searchParams?: Promise<{
     page?: string;
@@ -19,6 +21,8 @@ export default async function Home(props: {
   // export default async function Home() {
   const searchParams = await props.searchParams;
   const query = searchParams?.query || "";
+
+  await createTableBlogs();
 
   return (
     <>
@@ -36,3 +40,24 @@ export default async function Home(props: {
     </>
   );
 }
+
+//// you can activate server functions on a client component like this.
+// 'use client'
+
+// import { incrementLike } from './actions'
+// import { useState } from 'react'
+
+// export default function LikeButton({ initialLikes }: { initialLikes: number }) {
+//   const [likes, setLikes] = useState(initialLikes)
+
+//   return (
+//     <>
+//       <p>Total Likes: {likes}</p>
+//       <button
+//         onClick={async () => {
+//           const updatedLikes = await incrementLike()
+//           setLikes(updatedLikes)
+//         }}
+//       >
+//         Like
+//       </button>

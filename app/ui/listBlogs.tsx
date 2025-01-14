@@ -11,18 +11,18 @@ import { ListBlogClient } from "./listBlogClient";
 export async function ListBlogs({ query }: { query: string }) {
   console.log("query", query);
 
-  let blogs: Blog[] = [];
+  let blogs: Blog[] | null = [];
 
   if (query === "") blogs = (await fetchAllBlogs()) as Blog[];
   else {
-    blogs = (await fetchSearchedBlogs(query)) as Blog[];
+    blogs = (await fetchSearchedBlogs(query)) as Blog[] | null;
   }
 
   // console.log("all blogs:", allBlogs);
 
   return (
     <>
-      <main className="w-1/2 p-6 md:px-10 h-screen grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4">
+      <main className="h-screen gap-20 p-20 justify-center grid-cols-1 sm:grid-cols-2 grid">
         <ListBlogClient blogs={blogs} />
       </main>
     </>
