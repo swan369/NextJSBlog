@@ -1,6 +1,6 @@
 import { deleteBlog } from "../lib/actions";
 
-export async function DeleteBlogForm({ id }: { id: string }) {
+export async function DeleteForm({ id }: { id: string }) {
   const deleteBlogAssist_id = async () => {
     "use server";
     await deleteBlog(id);
