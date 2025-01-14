@@ -1,17 +1,11 @@
 import { getImage } from "@/app/lib/fetch";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-// Define proper param types
-interface RouteContext {
-  params: {
-    id: string;
-  };
-  searchParams: { [key: string]: string | string[] | undefined };
-}
+type RouteSegment = { params: { id: string } };
 
-export async function GET(request: Request, context: RouteContext) {
+export async function GET(_request: NextRequest, segment: RouteSegment) {
   // do not destructure as per Next.js 15
-  const id = context.params.id;
+  const id = segment.params.id;
 
   // already converted to buffer and is an object {data:<Buffer.., type: 'image/png'}
   const image = await getImage(id);
