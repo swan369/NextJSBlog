@@ -29,7 +29,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         </form>
 
         {/* can passdown to server components too */}
-        <DeleteBlogForm id={id} />
+        <DeleteForm id={id} />
       </main>
     </>
   );
