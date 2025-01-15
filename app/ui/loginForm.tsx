@@ -1,11 +1,5 @@
 "use client";
 
-// import {
-//   AtSymbolIcon,
-//   KeyIcon,
-//   ExclamationCircleIcon,
-// } from "@heroicons/react/24/outline";
-
 import {
   ExclamationCircleIcon,
   KeyIcon,
@@ -21,6 +15,7 @@ export default function LoginForm() {
     undefined
   );
 
+  // no need use e.preventDefault() on server side
   return (
     <form action={formAction} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
@@ -71,7 +66,6 @@ export default function LoginForm() {
           Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
         </button>
         <div className="flex h-8 items-end space-x-1">
-          {/* Add form errors here */}
           {/* if errorMessage is truthy evaluates (...) */}
           {errorMessage && (
             <>

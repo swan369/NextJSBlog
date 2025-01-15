@@ -4,13 +4,14 @@ import { SearchBar } from "@/app/ui/searchBar";
 import Link from "next/link";
 import { Suspense } from "react";
 import { PlusIcon } from "@heroicons/react/24/outline";
+import { ReactNode } from "react";
 
 const links = [
   { name: "Home", href: "/" },
-  {
-    name: "Login",
-    href: "/login",
-  },
+  // {
+  //   name: "Login",
+  //   href: "/login",
+  // },
   { name: "Contact", href: "/contact" },
   { name: "addBlog", href: "/create" },
 ];
@@ -27,7 +28,7 @@ const linkBoxes = links.map((link) => {
   );
 });
 
-export function NavBar() {
+export function NavBar({ children }: { children: ReactNode }) {
   return (
     <>
       <nav className="bg-purple-500 text-white h-20 content-center">
@@ -42,11 +43,11 @@ export function NavBar() {
             <SearchBar />
           </Suspense>
 
-          <div className="hidden  md:flex md:bg-orange-500 md:w-1/3 md:justify-around md:font-bold">
+          <div className="hidden  md:flex md:bg-orange-500 md:w-1/3 md:justify-around md:font-bold items-center">
             {linkBoxes}
+            {children}
           </div>
         </div>
-        {/* <SigningOut /> */}
       </nav>
     </>
   );

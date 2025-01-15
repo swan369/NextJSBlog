@@ -7,7 +7,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const id = (await params).id;
-
+  //.............
   // already converted to buffer and is an object {data:<Buffer.., type: 'image/png'}
   const image = await getImage(id);
 

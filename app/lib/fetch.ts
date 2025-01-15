@@ -41,7 +41,7 @@ export async function getImage(id: string) {
   // Convert the base64 string to a Buffer
   const imageBuffer = Buffer.from(row.image_file, "base64");
 
-  console.log("image_type:", row.image_type);
+  console.log("image_type:", row.image_type); // image/png
 
   return {
     data: imageBuffer, // The actual image as a Buffer

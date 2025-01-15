@@ -1,7 +1,7 @@
 import "@/app/ui/global.css";
-import { NavBar } from "./ui/nav";
 import { SearchProvider } from "./lib/provider";
 import { SigningOut } from "./ui/signingout";
+import { NavBar } from "./ui/navbar";
 
 export default function RootLayout({
   children,
@@ -12,8 +12,9 @@ export default function RootLayout({
     <html lang="en" className="">
       <body className="">
         <SearchProvider>
-          <SigningOut />
-          <NavBar />
+          <NavBar>
+            <SigningOut />
+          </NavBar>
           {children}
         </SearchProvider>
       </body>
