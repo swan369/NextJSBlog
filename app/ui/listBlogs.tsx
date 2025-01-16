@@ -22,7 +22,8 @@ export async function ListBlogs({ query }: { query: string }) {
 
   return (
     <>
-      <main className="h-screen gap-20 p-20 justify-center grid-cols-1 sm:grid-cols-2 grid">
+      {/* <main className="h-screen gap-20 p-20 justify-center grid-cols-1 sm:grid-cols-2 grid"> */}
+      <main className="min-h-screen p-8">
         <ListBlogClient blogs={blogs} />
       </main>
     </>

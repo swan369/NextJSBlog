@@ -11,7 +11,7 @@ import { SkeletonLoading } from "./ui/skeleton";
 // guarantees that searchParams reflects the latest state of the URL
 // you then can pass data to children as props.
 
-import { createTableBlogs } from "./lib/fetch";
+// import { createTableBlogs } from "./lib/fetch";
 export default async function Home(props: {
   searchParams?: Promise<{
     page?: string;
@@ -22,7 +22,7 @@ export default async function Home(props: {
   const searchParams = await props.searchParams;
   const query = searchParams?.query || "";
 
-  await createTableBlogs();
+  // await createTableBlogs();
 
   return (
     <>

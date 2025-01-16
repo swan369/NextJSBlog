@@ -42,11 +42,11 @@ export function SearchBar() {
 
   return (
     <>
-      <div className="relative flex flex-1 flex-shrink-0 ">
+      <div className="hidden md:flex justify-center w-96 min-w-96 items-center">
         <label className="sr-only">Search</label>
         <input
           type="text"
-          className="peer block w-7/12 rounded-md border border-gray-200 py-[9px] pl-10 text-sm text-black outline-2 placeholder:text-gray-500"
+          className="w-3/4 h-10 rounded-md border border-gray-200 py-[9px] pl-10 text-sm text-black outline-2 placeholder:text-gray-500"
           placeholder="search here..."
           onChange={(e) => handleChange(e)}
           // defaultValue only set the initial value when first rendered. Useful for prefilling forms like edits
@@ -56,10 +56,9 @@ export function SearchBar() {
           // it is controlled programatically. Good for control state like fast user inputs. Good for fast searching
           value={searchQuery}
         />
-        <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
       </div>
 
-      <MagnifyingGlassIcon className="size-9 inline md:hidden mr-6" />
+      <MagnifyingGlassIcon className="inline md:hidden max-h-10 max-w-10 mr-6" />
     </>
   );
 }
