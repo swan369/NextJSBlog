@@ -43,7 +43,7 @@ export function NavBar({ children }: { children: ReactNode }) {
             <SearchBar />
           </Suspense>
 
-          <div className="hidden  md:flex md:bg-orange-500 md:w-1/3 md:justify-around md:font-bold items-center">
+          <div className="hidden md:flex md:bg-orange-500 md:w-1/3 md:justify-around md:font-bold items-center sm:text-nowrap">
             {linkBoxes}
             {children}
           </div>
