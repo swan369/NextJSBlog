@@ -1,4 +1,5 @@
 import { sql } from "@vercel/postgres";
+import { Blog } from "./definitions";
 
 export async function fetchAllBlogs() {
   try {
@@ -21,7 +22,21 @@ export async function fetchSearchedBlogs(term: string) {
 export async function fetchBlogById(id: string) {
   const data = await sql`SELECT * FROM blogs
   WHERE _id = ${id}`;
-  return data.rows[0];
+
+  //   const blog = data.rows[0];  // This has type QueryResultRow
+  // error: QueryResultRow is like saying "this could be any object with any properties from the database." It's a very permissive type that doesn't guarantee it has all the properties required by your Blog type.
+  const blog = data.rows[0];
+
+  // hence explicitly declare (safest)
+  return {
+    _id: blog._id,
+    title: blog.title,
+    detail: blog.detail,
+    image_url: blog.image_url,
+    author: blog.author,
+    author_id: blog.author_id,
+    date: blog.date,
+  } as Blog;
 }
 
 // fetch image by id via URL on blog card

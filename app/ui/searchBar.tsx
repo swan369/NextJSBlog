@@ -4,6 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { useSearch } from "../lib/provider";
 import { usePathname } from "next/navigation";
+import { buttonTest } from "../lib/actions";
 
 export function SearchBar() {
   // it's a client component, hence can use hook:useSearchParams(), won't receive argument searchParams
@@ -57,6 +58,15 @@ export function SearchBar() {
           value={searchQuery}
         />
       </div>
+      <button
+        type="button"
+        onClick={() => {
+          // console.log("I am X")
+          buttonTest();
+        }}
+      >
+        X
+      </button>
 
       <MagnifyingGlassIcon className="inline md:hidden max-h-10 max-w-10 mr-6" />
     </>

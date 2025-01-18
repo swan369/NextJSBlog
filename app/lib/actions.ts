@@ -1,10 +1,10 @@
+// in actions, try to return errors instead of try catch or throw new Error()
+
 "use server";
 import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
-// 02d92eea-ed2c-4ce4-9c9a-dd79bd44ab07
 
 // https://picsum.photos/200/300
 
@@ -92,7 +92,7 @@ export async function createBlog(
 export async function updateBlog(
   id: string,
   formData: FormData
-): Promise<void> {
+): Promise<{ message: string } | void> {
   //extract raw data
   const rawUpdate = {
     title: formData.get("title"),
@@ -110,14 +110,21 @@ export async function updateBlog(
 
   const { title, detail, image_url, author, author_id } = validatedUpdate;
 
-  try {
-    await sql`
+  // try {
+
+  const res = await sql`
     UPDATE blogs
     SET title = ${title}, detail = ${detail}, image_url = ${image_url}, author = ${author}, author_id = ${author_id}
     WHERE _id = ${id}`;
-  } catch (error) {
-    console.log("error:", error);
-    throw new Error("Database Error: Failed to update blog");
+  // } catch (error) {
+  // console.log("error:", error);
+  // throw new Error("Database Error: Failed to update blog");
+  // }
+
+  console.log("update blog:", res);
+  // return instead of tryCatch or Throw, as using useActionState in client edit "page"
+  if (res.rowCount === 0) {
+    return { message: "failed to update blog" };
   }
 
   revalidatePath("/[id]/edit");
@@ -173,4 +180,8 @@ export async function authenticate(
     }
     throw error;
   }
+}
+
+export async function buttonTest() {
+  console.log("I am XXX");
 }
