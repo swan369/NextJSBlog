@@ -4,6 +4,7 @@ import { UpdateBlog } from "@/app/ui/updateBlog";
 
 // must use default at page level
 // In Next.js, route parameters are always provided as direct values, not Promises
+// server components receives search params or params as props
 export default async function Page({ params }: { params: { id: string } }) {
   const id = params.id;
 

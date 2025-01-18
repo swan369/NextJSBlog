@@ -1,28 +1,42 @@
 "use client";
 
 import { createBlog } from "../lib/actions";
-import { useState } from "react";
+// import { useState } from "react";
+import { useActionState } from "react";
 
 export function CreateBlogForm() {
-  const [error, setError] = useState<string | null>(null);
+  // const [error, setError] = useState<string | null>(null);
 
-  async function handleSubmit(formData: FormData) {
-    try {
-      const result = await createBlog(formData);
-      if (result.error) {
-        setError(result.error);
-        return;
-      }
-    } catch (error) {
-      const err = error as Error;
-      console.log(err);
-      setError("Failed to create blog");
-    }
+  const [state, formAction, isPending] = useActionState(
+    handleSubmit,
+    undefined
+  );
+
+  type State = { message: string } | void;
+
+  async function handleSubmit(state: State, formData: FormData) {
+    // do not use inline "use server" in client components
+    // try {
+    return await createBlog(formData);
+
+    //   if (result.message) {
+    //     setError(result.message);
+    //     return;
+    // below is default behaviour of throw new error. Also requires function return type  :Promise<{ error: string | null}> in actions because Nextjs does not know for certain
+    // if (result.error) {
+    //   setError(result.error);
+    //   return;
+    // }
+    // } catch (error) {
+    //   const err = error as Error;
+    //   console.log(err);
+    //   setError("Failed to create blog");
+    // }
   }
   return (
     <>
       <form
-        action={handleSubmit}
+        action={formAction}
         className="flex flex-col gap-6 w-3/4 bg-white p-8 rounded-lg shadow-md"
       >
         <div>
@@ -57,7 +71,7 @@ export function CreateBlogForm() {
             // required
           />
         </div>
-        {error && <div className="text-red-500">{error}</div>}
+        {state?.message && <p aria-live="polite">{state.message}</p>}
 
         <div>
           <label className="block text-gray-700 text-sm font-medium">
@@ -98,6 +112,7 @@ export function CreateBlogForm() {
         <div className="flex justify-end">
           <button
             type="submit"
+            disabled={isPending}
             className="w-full py-3 bg-blue-500 text-white max-w-56 font-medium rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
           >
             Submit

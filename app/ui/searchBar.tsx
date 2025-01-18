@@ -4,7 +4,9 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { useSearch } from "../lib/provider";
 import { usePathname } from "next/navigation";
-import { buttonTest } from "../lib/actions";
+// import { buttonTest } from "../lib/actions";
+// import { useState } from "react";
+import { clsx } from "clsx";
 
 export function SearchBar() {
   // it's a client component, hence can use hook:useSearchParams(), won't receive argument searchParams
@@ -20,8 +22,12 @@ export function SearchBar() {
   // thus besides change/add, allows ease of update to URL
   // searchParams only reflects the new URL query after replace() effects
 
-  const { searchQuery, setSearchQuery } = useSearch();
+  const { searchQuery, setSearchQuery, showInput, setShowInput } = useSearch();
   const pathname = usePathname();
+
+  const toggleSearch = function () {
+    setShowInput(!showInput);
+  };
 
   const handleSearch = useDebouncedCallback((term) => {
     const params = new URLSearchParams(searchParams);
@@ -43,11 +49,18 @@ export function SearchBar() {
 
   return (
     <>
-      <div className="hidden md:flex justify-center w-96 min-w-96 items-center">
+      <div
+        className={clsx(
+          "sm:flex justify-center w-96 min-w-96 items-center ml-5 relative",
+          {
+            hidden: !showInput,
+          }
+        )}
+      >
         <label className="sr-only">Search</label>
         <input
           type="text"
-          className="w-3/4 h-10 rounded-md border border-gray-200 py-[9px] pl-10 text-sm text-black outline-2 placeholder:text-gray-500"
+          className="w-full h-10 rounded-md border border-gray-200 py-[9px] pl-10 text-sm text-black outline-2 placeholder:text-gray-500"
           placeholder="search here..."
           onChange={(e) => handleChange(e)}
           // defaultValue only set the initial value when first rendered. Useful for prefilling forms like edits
@@ -57,18 +70,25 @@ export function SearchBar() {
           // it is controlled programatically. Good for control state like fast user inputs. Good for fast searching
           value={searchQuery}
         />
+        <button
+          className="sm:hidden absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
+          type="button"
+          onClick={toggleSearch}
+        >
+          X
+        </button>
       </div>
-      <button
-        type="button"
-        onClick={() => {
-          // console.log("I am X")
-          buttonTest();
-        }}
-      >
-        X
-      </button>
 
-      <MagnifyingGlassIcon className="inline md:hidden max-h-10 max-w-10 mr-6" />
+      {/* hides when input shows, hides from sm onwards */}
+      <button
+        className={clsx("sm:hidden", {
+          hidden: showInput,
+        })}
+        // className="md:hidden max-h-10 max-w-10 mr-6"
+        onClick={toggleSearch}
+      >
+        <MagnifyingGlassIcon className="min-h-10 min-w-10 " />
+      </button>
     </>
   );
 }

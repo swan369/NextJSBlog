@@ -28,15 +28,17 @@ export async function fetchBlogById(id: string) {
   const blog = data.rows[0];
 
   // hence explicitly declare (safest)
-  return {
-    _id: blog._id,
-    title: blog.title,
-    detail: blog.detail,
-    image_url: blog.image_url,
-    author: blog.author,
-    author_id: blog.author_id,
-    date: blog.date,
-  } as Blog;
+  // return {
+  //   _id: blog._id,
+  //   title: blog.title,
+  //   detail: blog.detail,
+  //   image_url: blog.image_url,
+  //   author: blog.author,
+  //   author_id: blog.author_id,
+  //   date: blog.date,
+  // } as Blog;
+
+  return blog as Blog; // second safest
 }
 
 // fetch image by id via URL on blog card

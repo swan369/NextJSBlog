@@ -13,6 +13,7 @@ export default function RootLayout({
       <body className="">
         <SearchProvider>
           <NavBar>
+            {/* wrapping needed as SigningOut is a server component */}
             <SigningOut />
           </NavBar>
           {children}

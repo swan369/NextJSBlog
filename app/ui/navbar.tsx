@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { ReactNode } from "react";
+import { useSearch } from "../lib/provider";
+import { clsx } from "clsx";
 
 const links = [
   { name: "Contact", href: "/contact" },
@@ -24,24 +26,34 @@ const linkBoxes = links.map((link) => {
 });
 
 export function NavBar({ children }: { children: ReactNode }) {
+  const { showInput } = useSearch();
   return (
     <>
       <nav className="bg-purple-500 text-white max-h-20 content-center">
         <div className="flex gap-2 justify-between items-center  bg-orange-400">
           <Link href="/" className="">
-            <div className="h-full flex ml-12 items-center text-3xl md:text-5xl font-bold text-nowrap">
+            <div
+              className={clsx(
+                "h-full flex ml-12 items-center text-3xl md:text-5xl font-bold text-nowrap",
+                {
+                  hidden: showInput,
+                  // always show on small screen and larger
+                  "sm:flex": showInput,
+                }
+              )}
+            >
               FitnessFinance
             </div>
           </Link>
-
           <Suspense fallback={<div>Loading...</div>}>
             <SearchBar />
           </Suspense>
-
           <div className="hidden lg:flex lg:bg-orange-400 lg:w-1/3 lg:justify-around lg:font-bold lg:items-center lg:text-nowrap">
             {linkBoxes}
-            {/* child is signingout-server component */}
           </div>
+          {/* child is signingout-server component */}
+          {/* server component rendering inside client component requires client to
+          wrap the server component */}
           <div className="block">{children}</div>
         </div>
       </nav>

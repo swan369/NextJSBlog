@@ -13,11 +13,19 @@ const SearchContext = createContext<SearchContextType | undefined>(undefined);
 export function SearchProvider({ children }: { children: ReactNode }) {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [showInput, setShowInput] = useState(false);
 
   return (
     <div>
       <SearchContext.Provider
-        value={{ searchQuery, setSearchQuery, blogs, setBlogs }}
+        value={{
+          searchQuery,
+          setSearchQuery,
+          blogs,
+          setBlogs,
+          showInput,
+          setShowInput,
+        }}
       >
         {children}
       </SearchContext.Provider>

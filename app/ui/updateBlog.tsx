@@ -1,18 +1,26 @@
 "use client";
 import { updateBlog } from "../lib/actions";
 import { Blog } from "../lib/definitions";
+import { useActionState } from "react";
 
 export function UpdateBlog({ blog }: { blog: Blog }) {
   const { _id, title, detail, image_url, author, author_id } = blog;
+  type State = void | { message: string };
 
-  //   const initialState = {
-  //     message: "",
-  //   };
+  const updateBlogWith_id = async (
+    state: State, // state as first parameter, needed to match useActionState requirements, can use any name
+    formData: FormData
+  ) => {
+    // not allowed to use "use server" as inline in client components
+    // only server components can use inline "use server"
+    const result = await updateBlog(_id, formData);
+    return result;
+  };
 
-  //   const [state, formAction, isPending] = useActionState(
-  //     updateBlogWith_id,
-  //     initialState
-  //   );
+  const [state, formAction, isPending] = useActionState(
+    updateBlogWith_id,
+    undefined
+  );
 
   //updateBlog only receives formData when action = {updateBlog}. If wanna add another argument like id, you can't like: action  = {updateBlog(id)}. You need to use a callback
   // first option to get action updateBlog to receive more than one arguments .e.g id
@@ -20,17 +28,12 @@ export function UpdateBlog({ blog }: { blog: Blog }) {
   // second option
   // const updateBlogWith_id = updateBlog.bind(null, id);
 
-  const updateBlogWith_id = async (formData: FormData) => {
-    // not allowed to use "use server" as inline in client components
-    // only server components can use inline "use server"
-    await updateBlog(_id, formData);
-  };
   return (
     <>
       <main className="bg-gray-100 flex items-center justify-center min-h-screen">
         <form
           // turning action to "somewhat" a listener/handler
-          action={updateBlogWith_id}
+          action={formAction}
           className="flex flex-col gap-6 w-3/4 bg-white p-8 rounded-lg shadow-md"
         >
           <div>
@@ -101,10 +104,14 @@ export function UpdateBlog({ blog }: { blog: Blog }) {
               defaultValue={author_id}
             />
           </div>
+          {state?.message && (
+            <p className="text-red-500 text-2xl">{state.message}</p>
+          )}
 
           <div className="flex justify-end">
             <button
               type="submit"
+              disabled={isPending}
               className="w-full py-3 bg-blue-500 text-white max-w-56 font-medium rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
             >
               Submit

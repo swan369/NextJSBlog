@@ -19,6 +19,8 @@ export type SearchContextType = {
   setSearchQuery: (query: string) => void;
   blogs: Blog[];
   setBlogs: (blogs: Blog[]) => void;
+  showInput: boolean;
+  setShowInput: (query: boolean) => void;
 };
 
 export type User = {

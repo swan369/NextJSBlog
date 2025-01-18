@@ -1,4 +1,5 @@
 // in actions, try to return errors instead of try catch or throw new Error()
+// avoid, try/catch/throw in actions. use return "error", in expected/controlled errors thus allowing useActionState()
 
 "use server";
 import { z } from "zod";
@@ -23,9 +24,9 @@ const FormSchema = z.object({
 
 //// create Blog
 // due to <form action = {createBlog}>, the function auto receives formData that contains user input
-export async function createBlog(
-  formData: FormData
-): Promise<{ error: string | null }> {
+
+// Promise<{ error: string | null }> // might be needed if error
+export async function createBlog(formData: FormData) {
   const CreateBlog = FormSchema.omit({ _id: true, date: true });
 
   let imageBuffer = null;
@@ -68,7 +69,7 @@ export async function createBlog(
   // Convert Buffer to base64 string for storage
   const base64String = imageBuffer ? imageBuffer.toString("base64") : null;
 
-  await sql`
+  const res = await sql`
   INSERT INTO blogs (
   title, detail, image_url,image_file, image_type, author, author_id, date
   )
@@ -83,16 +84,17 @@ export async function createBlog(
   ${date}
   )
   `;
+  if (res.rowCount === 0) {
+    return { message: "unable to createBlog" };
+  }
 
   revalidatePath("/create");
   redirect("/");
 }
 
+// do not need return type: Promise<> as its async, and knows return type is already a Promise by inference.
 //update blog by id
-export async function updateBlog(
-  id: string,
-  formData: FormData
-): Promise<{ message: string } | void> {
+export async function updateBlog(id: string, formData: FormData) {
   //extract raw data
   const rawUpdate = {
     title: formData.get("title"),
@@ -121,9 +123,10 @@ export async function updateBlog(
   // throw new Error("Database Error: Failed to update blog");
   // }
 
-  console.log("update blog:", res);
+  // console.log("update blog:", res);
   // return instead of tryCatch or Throw, as using useActionState in client edit "page"
   if (res.rowCount === 0) {
+    // if (true) {
     return { message: "failed to update blog" };
   }
 
