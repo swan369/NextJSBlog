@@ -4,7 +4,7 @@ import { Blog } from "../lib/definitions";
 import { useActionState } from "react";
 
 export function UpdateBlog({ blog }: { blog: Blog }) {
-  const { _id, title, detail, image_url, author, author_id } = blog;
+  const { _id, title, detail, author, author_id } = blog;
   type State = void | { message: string };
 
   const updateBlogWith_id = async (
