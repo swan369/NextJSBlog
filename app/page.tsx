@@ -12,16 +12,15 @@ import { SkeletonLoading } from "./ui/skeleton";
 // you then can pass data to children as props.
 
 // import { createTableBlogs } from "./lib/fetch";
-export default async function Home(props: {
-  searchParams?: Promise<{
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{
     page?: string;
     query?: string;
   }>;
 }) {
-  // export default async function Home() {
-  const searchParams = await props.searchParams;
-  const query = searchParams?.query || "";
-
+  const { query = "" } = await searchParams;
   // await createTableBlogs();
 
   return (
@@ -34,6 +33,7 @@ export default async function Home(props: {
             </div>
           }
         >
+          {/* server to server pass down props */}
           <ListBlogs query={query} />
         </Suspense>
       </main>

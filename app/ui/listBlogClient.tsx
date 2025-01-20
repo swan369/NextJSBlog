@@ -26,7 +26,9 @@ export function ListBlogClient({ blogs }: { blogs: Blog[] | null }) {
               className="rounded-t-lg object-cover"
               src={`/images/${blog._id}`}
               alt={blog.title || "Blog image"}
-              fill
+              // width={800} // Example width
+              // height={400}
+              fill // need this..since images ends up of diff sizes
               sizes="100%"
               priority={true}
             />

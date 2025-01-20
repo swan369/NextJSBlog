@@ -1,6 +1,4 @@
 import { fetchAllBlogs } from "../lib/fetch";
-// import Image from "next/image";
-// import Link from "next/link";
 import { fetchSearchedBlogs } from "../lib/fetch";
 import { Blog } from "../lib/definitions";
 import { ListBlogClient } from "./listBlogClient";

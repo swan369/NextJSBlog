@@ -9,10 +9,10 @@ import { usePathname } from "next/navigation";
 import { clsx } from "clsx";
 
 export function SearchBar() {
-  // it's a client component, hence can use hook:useSearchParams(), won't receive argument searchParams
+  // returns only read-only version URLSearchParams
   const searchParams = useSearchParams();
   // const query = searchParams.get("query");
-  // console.log(query);
+
   const { replace } = useRouter();
 
   // searchParams provides the current state of the query parameters in the URL.
