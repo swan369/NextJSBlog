@@ -51,7 +51,7 @@ export function SearchBar() {
     <>
       <div
         className={clsx(
-          "sm:flex justify-center w-96 min-w-96 items-center ml-5 relative",
+          "sm:flex justify-center  min-w-96 max-w-96 items-center relative",
           {
             hidden: !showInput,
           }

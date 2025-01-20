@@ -30,8 +30,8 @@ export function NavBar({ children }: { children: ReactNode }) {
   return (
     <>
       <nav className="bg-purple-500 text-white max-h-20 content-center">
-        <div className="flex gap-2 justify-between items-center  bg-orange-400">
-          <Link href="/" className="">
+        <div className="flex gap-4 justify-between items-center  bg-orange-400">
+          <Link href="/" className="hover:text-blue-600">
             <div
               className={clsx(
                 "h-full flex ml-12 items-center text-3xl md:text-5xl font-bold text-nowrap",

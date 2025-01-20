@@ -105,14 +105,14 @@ export function UpdateBlog({ blog }: { blog: Blog }) {
             />
           </div>
           {state?.message && (
-            <p className="text-red-500 text-2xl">{state.message}</p>
+            <p className="text-red-500 text-2xl">{state?.message}</p>
           )}
 
           <div className="flex justify-end">
             <button
               type="submit"
               disabled={isPending}
-              className="w-full py-3 bg-blue-500 text-white max-w-56 font-medium rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+              className="w-full py-3 bg-purple-500 text-white max-w-56 font-medium rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
             >
               Submit
             </button>

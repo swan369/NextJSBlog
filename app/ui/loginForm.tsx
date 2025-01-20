@@ -15,8 +15,6 @@ export default function LoginForm() {
     undefined
   );
 
-  // no need use e.preventDefault() on server side
-  // e.preventDefault() to pevent re-rendering after submit in React client side.
   return (
     <form action={formAction} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
@@ -63,8 +61,9 @@ export default function LoginForm() {
           </div>
         </div>
         {/* isPending is used to disable the button during loading */}
-        <button className="mt-4 w-full" aria-disabled={isPending}>
-          Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
+        <button className="mt-4 w-full text-blue-600" aria-disabled={isPending}>
+          Log in
+          <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
         </button>
         <div className="flex h-8 items-end space-x-1">
           {/* if errorMessage is truthy evaluates (...) */}
