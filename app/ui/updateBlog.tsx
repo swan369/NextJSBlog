@@ -66,7 +66,7 @@ export function UpdateBlog({ blog }: { blog: Blog }) {
             ></textarea>
           </div>
 
-          <div>
+          {/* <div>
             <label className="block text-gray-700 text-sm font-medium">
               Image URL:
             </label>
@@ -77,7 +77,7 @@ export function UpdateBlog({ blog }: { blog: Blog }) {
               className="mt-2 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               defaultValue={image_url}
             />
-          </div>
+          </div> */}
 
           <div>
             <label className="block text-gray-700 text-sm font-medium">

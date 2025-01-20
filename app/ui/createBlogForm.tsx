@@ -73,7 +73,7 @@ export function CreateBlogForm() {
         </div>
         {state?.message && <p aria-live="polite">{state.message}</p>}
 
-        <div>
+        {/* <div>
           <label className="block text-gray-700 text-sm font-medium">
             Image_URL:
           </label>
@@ -83,7 +83,7 @@ export function CreateBlogForm() {
             placeholder="Enter the image_URL"
             className="mt-2 w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-        </div>
+        </div> */}
 
         <div>
           <label className="block text-gray-700 text-sm font-medium">

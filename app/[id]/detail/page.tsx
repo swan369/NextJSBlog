@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const id = (await props.params).id;
 
-  const { title, image_url, detail } = await fetchBlogById(id);
+  const { title, detail } = await fetchBlogById(id);
 
   const handleDirectAction = async function () {
     // "use server" in line in server not in client, or use module "use server" for both
@@ -30,7 +30,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         />
         <div className="w-full p-8">
           <h1 className="font-bold text-3xl">{title}</h1>
-          {image_url}
+          {/* {image_url} */}
         </div>
 
         <div className="w-full p-8">
